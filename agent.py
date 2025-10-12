@@ -12,14 +12,11 @@ class OkosotthonParancsElemzoContext:
     self.workflow_input_as_text = workflow_input_as_text
 def okosotthon_parancs_elemzo_instructions(run_context: RunContextWrapper[OkosotthonParancsElemzoContext], _agent: Agent[OkosotthonParancsElemzoContext]):
   workflow_input_as_text = run_context.context.workflow_input_as_text
+  json_template = '{"helyiség": "", "eszköz": "", "parancs": ""}'
   return f"""Elemezd a felhasználó mondatát, és azonosítsd az okosotthon helyiségét, az érintett eszközt és a végrehajtandó parancsot.
 
 Válaszolj kizárólag a következő JSON formátumban:
-{
-  \"helyiség\": \"\",
-  \"eszköz\": \"\",
-  \"parancs\": \"\"
-}
+{json_template}
 
 Ha valami nem egyértelmű, írd be a legvalószínübb választ.
 

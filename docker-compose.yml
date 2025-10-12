@@ -20,7 +20,7 @@ services:
       retries: 3
     volumes:
       # Mount code files for development (optional - remove in production)
-      - ./simple_agent.py:/app/simple_agent.py:ro
+      - ./agent.py:/app/agent.py:ro
       - ./app.py:/app/app.py:ro
     networks:
       - agent-network

@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 import logging
-from simple_agent import analyze_command as ai_analyze
+import asyncio
+from agent import run_workflow, WorkflowInput
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -59,15 +60,21 @@ def analyze_endpoint():
         
         logger.info(f"Analyzing command: {input_text}")
         
-        # Analyze command using OpenAI
-        result = ai_analyze(input_text)
+        # Create workflow input
+        workflow_input = WorkflowInput(input_as_text=input_text)
         
-        logger.info(f"Analysis result: {result}")
+        # Run the workflow asynchronously
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(run_workflow(workflow_input))
+        loop.close()
+        
+        logger.info(f"Workflow result: {result}")
         
         # Return the parsed result
         return jsonify({
             "success": True,
-            "result": result
+            "result": result['output_parsed']
         }), 200
         
     except Exception as e:
