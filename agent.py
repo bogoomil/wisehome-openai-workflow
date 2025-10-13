@@ -2,9 +2,9 @@ from pydantic import BaseModel
 from agents import RunContextWrapper, Agent, ModelSettings, TResponseInputItem, Runner, RunConfig
 
 class OkosotthonParancsElemzoSchema(BaseModel):
-  helyiség: str
-  eszköz: str
-  parancs: str
+  room: str
+  device: str
+  command: str
 
 
 class OkosotthonParancsElemzoContext:
