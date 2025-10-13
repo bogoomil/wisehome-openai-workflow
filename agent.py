@@ -18,7 +18,7 @@ def okosotthon_parancs_elemzo_instructions(run_context: RunContextWrapper[Okosot
 Válaszolj kizárólag a következő JSON formátumban angolul:
 {json_template}
 
-Ha valami nem egyértelmű, a megfelelő mezőbe írd be, hogy unknown.
+Ha valami nem egyértelmű, a megfelelő mezőbe írd be, a legvalószínűbb választ.
 
 Most elemezd a következő mondatot:
 {workflow_input_as_text}
