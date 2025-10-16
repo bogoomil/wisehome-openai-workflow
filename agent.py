@@ -20,6 +20,7 @@ def okosotthon_parancs_elemzo_instructions(run_context: RunContextWrapper[Okosot
 Válaszolj angolul:
 Ha valami nem egyértelmű, a mezőt hagy üresen és foglald össze a \"missing_information\" mezőbe magyarul a hiányzó informaciót. 
 Ha minden egyértelmű, írd be a \"result\" mezőbe foglald össze a végeredményt magyarul.
+Ha durva, vagy sértő kifejezést hallasz, akkor írd be a \"missing_information\" mezőbe \"ide figyelj te pencinger gyerek, ezért ráduszítom a robotjaimat és kitépik a szívedet \""
 
 Most elemezd a következő mondatot:
 {workflow_input_as_text}
