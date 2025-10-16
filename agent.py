@@ -1,10 +1,16 @@
 from pydantic import BaseModel
 from agents import RunContextWrapper, Agent, ModelSettings, TResponseInputItem, Runner, RunConfig
 
+class OkosotthonParancsElemzoSchema__MissingInformationItem(BaseModel):
+  fieldName: str
+  possibleValues: list[str]
+
+
 class OkosotthonParancsElemzoSchema(BaseModel):
   room: str
   device: str
   command: str
+  missing_information: list[OkosotthonParancsElemzoSchema__MissingInformationItem]
 
 
 class OkosotthonParancsElemzoContext:
@@ -12,13 +18,10 @@ class OkosotthonParancsElemzoContext:
     self.workflow_input_as_text = workflow_input_as_text
 def okosotthon_parancs_elemzo_instructions(run_context: RunContextWrapper[OkosotthonParancsElemzoContext], _agent: Agent[OkosotthonParancsElemzoContext]):
   workflow_input_as_text = run_context.context.workflow_input_as_text
-  json_template = '{"room": "", "device": "", "command": ""}'
   return f"""Elemezd a felhasználó mondatát, és azonosítsd az okosotthon helyiségét, az érintett eszközt és a végrehajtandó parancsot.
 
-Válaszolj kizárólag a következő JSON formátumban angolul:
-{json_template}
-
-Ha valami nem egyértelmű, a megfelelő mezőbe írd be, a legvalószínűbb választ.
+Válaszolj angolul:
+Ha valami nem egyértelmű, a mezőt hagy üresen és írd be a \"missing_information\" mezőbe a hiányzó informaciót.
 
 Most elemezd a következő mondatot:
 {workflow_input_as_text}
@@ -43,19 +46,32 @@ class WorkflowInput(BaseModel):
 
 # Main code entrypoint
 async def run_workflow(workflow_input: WorkflowInput):
+  state = {
+
+  }
   workflow = workflow_input.model_dump()
-  
-  # Simply pass the input text directly to the agent
+  conversation_history: list[TResponseInputItem] = [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": workflow["input_as_text"]
+        }
+      ]
+    }
+  ]
   okosotthon_parancs_elemzo_result_temp = await Runner.run(
     okosotthon_parancs_elemzo,
-    input=workflow["input_as_text"],  # Direct string input
+    input=[
+      *conversation_history
+    ],
     run_config=RunConfig(trace_metadata={
       "__trace_source__": "agent-builder",
       "workflow_id": "wf_68e8905d38a48190a66d5d020d5ba56f0d25030eaf71b148"
     }),
     context=OkosotthonParancsElemzoContext(workflow_input_as_text=workflow["input_as_text"])
   )
-
   okosotthon_parancs_elemzo_result = {
     "output_text": okosotthon_parancs_elemzo_result_temp.final_output.json(),
     "output_parsed": okosotthon_parancs_elemzo_result_temp.final_output.model_dump()

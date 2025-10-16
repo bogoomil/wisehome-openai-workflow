@@ -34,9 +34,10 @@ def analyze_endpoint():
     {
         "success": true,
         "result": {
-            "helyiség": "nappali",
-            "eszköz": "lámpa",
-            "parancs": "bekapcsol"
+            "room": "living room",
+            "device": "lamp",
+            "command": "turn on",
+            "missing_information": []
         }
     }
     """
@@ -71,10 +72,18 @@ def analyze_endpoint():
         
         logger.info(f"Workflow result: {result}")
         
+        # Check for missing information
+        parsed_result = result['output_parsed']
+        missing_info = parsed_result.get('missing_information', [])
+        
+        if missing_info:
+            logger.warning(f"Missing information detected: {missing_info}")
+        
         # Return the parsed result
         return jsonify({
             "success": True,
-            "result": result['output_parsed']
+            "result": parsed_result,
+            "has_missing_info": len(missing_info) > 0
         }), 200
         
     except Exception as e:
@@ -100,6 +109,12 @@ def root():
             "method": "POST",
             "body": {
                 "text": "kapcsold be a nappaliban a lámpát"
+            },
+            "response_fields": {
+                "room": "Room/location",
+                "device": "Device type",
+                "command": "Command to execute",
+                "missing_information": "List of missing/unclear fields"
             },
             "example": "curl -X POST http://localhost:5000/analyze -H 'Content-Type: application/json' -d '{\"text\":\"kapcsold be a lámpát\"}'"
         }
