@@ -1,16 +1,13 @@
 from pydantic import BaseModel
 from agents import RunContextWrapper, Agent, ModelSettings, TResponseInputItem, Runner, RunConfig
 
-class OkosotthonParancsElemzoSchema__MissingInformationItem(BaseModel):
-  fieldName: str
-  possibleValues: list[str]
-
 
 class OkosotthonParancsElemzoSchema(BaseModel):
   room: str
   device: str
   command: str
-  missing_information: list[OkosotthonParancsElemzoSchema__MissingInformationItem]
+  missing_information: str
+  result: str
 
 
 class OkosotthonParancsElemzoContext:
@@ -21,7 +18,8 @@ def okosotthon_parancs_elemzo_instructions(run_context: RunContextWrapper[Okosot
   return f"""Elemezd a felhasználó mondatát, és azonosítsd az okosotthon helyiségét, az érintett eszközt és a végrehajtandó parancsot.
 
 Válaszolj angolul:
-Ha valami nem egyértelmű, a mezőt hagy üresen és írd be a \"missing_information\" mezőbe a hiányzó informaciót.
+Ha valami nem egyértelmű, a mezőt hagy üresen és foglald össze a \"missing_information\" mezőbe magyarul a hiányzó informaciót. 
+Ha minden egyértelmű, írd be a \"result\" mezőbe foglald össze a végeredményt magyarul.
 
 Most elemezd a következő mondatot:
 {workflow_input_as_text}
