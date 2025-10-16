@@ -43,34 +43,18 @@ class WorkflowInput(BaseModel):
 
 # Main code entrypoint
 async def run_workflow(workflow_input: WorkflowInput):
-  state = {
-
-  }
   workflow = workflow_input.model_dump()
-  conversation_history: list[TResponseInputItem] = [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": workflow["input_as_text"]
-        }
-      ]
-    }
-  ]
+  
+  # Simply pass the input text directly to the agent
   okosotthon_parancs_elemzo_result_temp = await Runner.run(
     okosotthon_parancs_elemzo,
-    input=[
-      *conversation_history
-    ],
+    input=workflow["input_as_text"],  # Direct string input
     run_config=RunConfig(trace_metadata={
       "__trace_source__": "agent-builder",
       "workflow_id": "wf_68e8905d38a48190a66d5d020d5ba56f0d25030eaf71b148"
     }),
     context=OkosotthonParancsElemzoContext(workflow_input_as_text=workflow["input_as_text"])
   )
-
-  conversation_history.extend([item.to_input_item() for item in okosotthon_parancs_elemzo_result_temp.new_items])
 
   okosotthon_parancs_elemzo_result = {
     "output_text": okosotthon_parancs_elemzo_result_temp.final_output.json(),
