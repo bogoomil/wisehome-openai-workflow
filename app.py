@@ -3,11 +3,17 @@ from flask_cors import CORS
 import os
 import logging
 import asyncio
+import json
 from agent import run_workflow, WorkflowInput
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Load available values from JSON file
+with open('available_values.json', 'r') as f:
+    AVAILABLE_VALUES = json.load(f)
+    logger.info(f"Loaded available values: {len(AVAILABLE_VALUES.get('rooms', []))} rooms")
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -61,8 +67,11 @@ def analyze_endpoint():
         
         logger.info(f"Analyzing command: {input_text}")
         
-        # Create workflow input
-        workflow_input = WorkflowInput(input_as_text=input_text)
+        # Create workflow input with available values
+        workflow_input = WorkflowInput(
+            input_as_text=input_text,
+            available_values=AVAILABLE_VALUES
+        )
         
         # Run the workflow asynchronously
         loop = asyncio.new_event_loop()

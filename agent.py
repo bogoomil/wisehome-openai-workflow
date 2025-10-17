@@ -1,11 +1,6 @@
 from pydantic import BaseModel
 from agents import RunContextWrapper, Agent, ModelSettings, TResponseInputItem, Runner, RunConfig
 import json
-import os
-
-# Load available values from JSON file
-with open(os.path.join(os.path.dirname(__file__), 'available_values.json'), 'r') as f:
-    AVAILABLE_VALUES = json.load(f)
 
 
 class OkosotthonParancsElemzoSchema(BaseModel):
