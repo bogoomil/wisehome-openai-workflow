@@ -23,6 +23,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY agent.py .
+COPY available_values.json .
 COPY app.py .
 
 # Expose port

@@ -1,0 +1,27 @@
+{
+  "rooms": [
+    {
+      "name": "livingroom",
+      "devices": [
+        {
+          "name": "switch",
+          "commands": ["turn on", "turn off"]
+        },
+        {
+          "name": "thermostat",
+          "commands": ["increase", "decrease"]
+        }
+      ]
+    },
+    {
+      "name": "bathroom",
+      "devices": [
+        {
+          "name": "switch",
+          "commands": ["turn on", "turn off"]
+        }
+      ]
+    }
+  ]
+}
+

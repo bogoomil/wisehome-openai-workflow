@@ -21,6 +21,7 @@ services:
     volumes:
       # Mount code files for development (optional - remove in production)
       - ./agent.py:/app/agent.py:ro
+      - ./available_values.json:/app/available_values.json:ro
       - ./app.py:/app/app.py:ro
     networks:
       - agent-network
