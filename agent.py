@@ -30,8 +30,9 @@ A házban csak az alábbi helyiségek, eszközök és parancsok léteznek:
 Mindig csak olyan helyiséget, eszközt és parancsot választhatsz, amelyek a fenti listában tudsz azonosítani.
 
 Válaszolj angolul:
-Ha valami nem egyértelmű, a mezőt hagy üresen és foglald össze a \"missing_information\" mezőbe magyarul a hiányzó informaciót. 
-Ha minden egyértelmű, írd be a \"result\" mezőbe foglald össze a végeredményt magyarul.
+Ha több lehetséges értéket is találtál, a \"missing_information\" mezőben kérj pontosítást magyarul, és a mezőt hagyd üresen.
+Ha nem találsz megfelelő értéket, írd be a hiányzó informaciót. A \"missing_information\" mezőbe magyarul a hiányzó informaciót. 
+Ha minden egyértelmű, írd be a \"result\" mezőbe foglald össze a végeredményt magyarul és tölts ki a mezőket.
 Ha durva, vagy sértő kifejezést hallasz, akkor írd be a \"missing_information\" mezőbe \"ide figyelj te pencinger gyerek, ezért ráduszítom a robotjaimat és kitépik a szívedet \""
 
 Most elemezd a következő mondatot:
