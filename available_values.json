@@ -1,19 +1,36 @@
 {
   "rooms": [
     {
-      "name": "livingroom",
-      "devices": [
+        "name": "livingroom",
+        "devices": [
+          {
+            "name": "switch",
+            "commands": ["turn on", "turn off"]
+          },
+          {
+            "name": "thermostat",
+            "commands": ["increase", "decrease"]
+          }
+        ]
+      },
+      {
+        "name": "kitchen",
+        "devices": [
+            {
+                "name": "switch",
+                "commands": ["turn on", "turn off", "increase", "decrease"]
+              },
+              {
+                "name": "light",
+                "commands": ["turn on", "turn off", "increase", "decrease"]
+              },
+                  {
+            "name": "thermostat",
+            "commands": ["increase", "decrease"]
+          }
+        ]
+      },
         {
-          "name": "switch",
-          "commands": ["turn on", "turn off"]
-        },
-        {
-          "name": "thermostat",
-          "commands": ["increase", "decrease"]
-        }
-      ]
-    },
-    {
       "name": "bathroom",
       "devices": [
         {
