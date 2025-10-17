@@ -15,7 +15,19 @@ class OkosotthonParancsElemzoContext:
     self.workflow_input_as_text = workflow_input_as_text
 def okosotthon_parancs_elemzo_instructions(run_context: RunContextWrapper[OkosotthonParancsElemzoContext], _agent: Agent[OkosotthonParancsElemzoContext]):
   workflow_input_as_text = run_context.context.workflow_input_as_text
+  
+  available_values = """
+Rooms: living room, bedroom, kitchen, bathroom, hallway, garage
+Devices: light, lamp, thermostat, heating, air conditioner, blinds, curtains, door, lock, camera
+Commands: turn on, turn off, open, close, set temperature, increase, decrease
+"""
+  
   return f"""Elemezd a felhasználó mondatát, és azonosítsd az okosotthon helyiségét, az érintett eszközt és a végrehajtandó parancsot.
+
+A házban csak az alábbi helyiségek, eszközök és parancsok léteznek:
+{available_values}
+
+Mindig csak olyan helyiséget, eszközt és parancsot választhatsz, amelyek a fenti listában tudsz azonosítani.
 
 Válaszolj angolul:
 Ha valami nem egyértelmű, a mezőt hagy üresen és foglald össze a \"missing_information\" mezőbe magyarul a hiányzó informaciót. 
