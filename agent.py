@@ -12,13 +12,15 @@ class OkosotthonParancsElemzoSchema(BaseModel):
 
 
 class OkosotthonParancsElemzoContext:
-  def __init__(self, workflow_input_as_text: str):
+  def __init__(self, workflow_input_as_text: str, available_values: dict):
     self.workflow_input_as_text = workflow_input_as_text
+    self.available_values = available_values
+
 def okosotthon_parancs_elemzo_instructions(run_context: RunContextWrapper[OkosotthonParancsElemzoContext], _agent: Agent[OkosotthonParancsElemzoContext]):
   workflow_input_as_text = run_context.context.workflow_input_as_text
   
   # Convert available values to formatted string
-  available_values_str = json.dumps(AVAILABLE_VALUES, indent=2)
+  available_values_str = json.dumps(run_context.context.available_values, indent=2)
   
   return f"""Elemezd a felhasználó mondatát, és azonosítsd az okosotthon helyiségét, az érintett eszközt és a végrehajtandó parancsot.
 
@@ -51,6 +53,7 @@ okosotthon_parancs_elemzo = Agent(
 
 class WorkflowInput(BaseModel):
   input_as_text: str
+  available_values: dict
 
 
 # Main code entrypoint
@@ -79,7 +82,10 @@ async def run_workflow(workflow_input: WorkflowInput):
       "__trace_source__": "agent-builder",
       "workflow_id": "wf_68e8905d38a48190a66d5d020d5ba56f0d25030eaf71b148"
     }),
-    context=OkosotthonParancsElemzoContext(workflow_input_as_text=workflow["input_as_text"])
+    context=OkosotthonParancsElemzoContext(
+      workflow_input_as_text=workflow["input_as_text"],
+      available_values=workflow["available_values"]
+    )
   )
   okosotthon_parancs_elemzo_result = {
     "output_text": okosotthon_parancs_elemzo_result_temp.final_output.json(),
