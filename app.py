@@ -13,7 +13,9 @@ logger = logging.getLogger(__name__)
 # Load available values from JSON file
 with open('available_values.json', 'r') as f:
     AVAILABLE_VALUES = json.load(f)
-    logger.info(f"Loaded available values: {len(AVAILABLE_VALUES.get('rooms', []))} rooms")
+    logger.info(f"Loaded available values: {len(AVAILABLE_VALUES.get('locations', []))} locations, "
+                f"{len(AVAILABLE_VALUES.get('devices', []))} devices, "
+                f"{len(AVAILABLE_VALUES.get('commands', []))} commands")
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes

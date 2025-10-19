@@ -1,44 +1,70 @@
 {
-  "rooms": [
-    {
-        "name": "livingroom",
-        "devices": [
-          {
-            "name": "switch",
-            "commands": ["turn on", "turn off"]
-          },
-          {
-            "name": "thermostat",
-            "commands": ["increase", "decrease"]
-          }
-        ]
-      },
-      {
-        "name": "kitchen",
-        "devices": [
-            {
-                "name": "switch",
-                "commands": ["turn on", "turn off", "increase", "decrease"]
-              },
-              {
-                "name": "light",
-                "commands": ["turn on", "turn off", "increase", "decrease"]
-              },
-                  {
-            "name": "thermostat",
-            "commands": ["increase", "decrease"]
-          }
-        ]
-      },
-        {
-      "name": "bathroom",
-      "devices": [
-        {
-          "name": "switch",
-          "commands": ["turn on", "turn off"]
-        }
-      ]
-    }
+  "locations": [
+    "all rooms",
+    "floor",
+    "livingroom",
+    "kitchen",
+    "bathroom",
+    "bedroom",
+    "garage",
+    "garden",
+    "office",
+    "hallway",
+    "storage"
+  ],
+  "devices": [
+    "switch",
+    "light",
+    "thermostat",
+    "fan",
+    "door",
+    "window",
+    "camera",
+    "speaker",
+    "mic",
+    "tv",
+    "radio",
+    "stereo",
+    "blinds",
+    "shades",
+    "air conditioner",
+    "heater",
+    "humidifier",
+    "dehumidifier",
+    "temperature sensor",
+    "motion sensor",
+    "presence sensor",
+    "smoke detector",
+    "carbon monoxide detector",
+    "flood detector",
+    "water leak detector",
+    "glass break detector",
+    "sound sensor",
+    "light sensor",
+    "temperature sensor",
+    "motion sensor",
+    "presence sensor",
+    "smoke detector",
+    "carbon monoxide detector",
+    "flood detector",
+    "water leak detector",
+    "glass break detector",
+    "sound sensor",
+    "light sensor",
+    "temperature sensor",
+    "motion sensor",
+    "presence sensor",
+    "smoke detector",
+    "carbon monoxide detector"
+  ],
+  "commands": [
+    "turn on",
+    "turn off",
+    "increase",
+    "decrease",
+    "open",
+    "close",
+    "read"
   ]
 }
 
